@@ -6,16 +6,24 @@ require("dotenv").config();
 
 
 const clusterServer=require('./config/cluster_server')
-const adminRouter=require('./routes/admin')
+const adminRouter=require('./routes/admin');
+const subjectRouter=require('./routes/subject');
+const teacherRouter=require('./routes/teacher');
+const isAuthorized = require('./middlewares/validation');
 
 
 const app = express()
 app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
+
+// routes 
 app.use('/v1/admin',adminRouter)
-app.get('/val',(req , res)=>{
-    res.json({success:'server successful'})
+app.use('/v1/subject',isAuthorized , subjectRouter)
+app.use('/v1/teacher',isAuthorized , teacherRouter)
+
+app.get('/test',isAuthorized , (req , res)=>{
+    res.json({success:'new deploy is working now..'})
 })
 
 // port number

@@ -48,7 +48,7 @@ register = async (req, res) => {
             maxAge: 29 * 24 * 60 * 60 * 1000,
         });
 
-        res.json({ accessToken });
+        res.json({ accessToken  ,id: newAdmin._id});
     } catch (err) {
         return res.status(500).json({ msg: err.message });
     }
@@ -69,11 +69,11 @@ register = async (req, res) => {
 
             const accessToken = createaccessToken({
                 id: admin._id,
-                role: 'Admin'
+                role: admin.isAdmin
             });
             const refreshtoken = createrefreshToken({
                 id: admin._id,
-                role: 'Admin'
+                role:  admin.isAdmin
             });
 
             res.cookie("refreshToken", refreshtoken, {
@@ -82,7 +82,7 @@ register = async (req, res) => {
                 maxAge: 29 * 24 * 60 * 60 * 1000,
             });
 
-            res.json({ accessToken });
+            res.json({ accessToken  ,id: admin._id });
 
         } catch (err) {
             return res.status(500).json({ msg: err.message });
@@ -99,7 +99,7 @@ register = async (req, res) => {
                 if (err) {
                     return res.status(400).json({ msg: "Please Login or Register2" });
                 }
-                const accessToken = createaccessToken({ id: Admin.id, role: 'Admin' });
+                const accessToken = createaccessToken({ id: Admin.id, role:  Admin.role });
                 res.json({ accessToken });
             });
          }

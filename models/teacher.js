@@ -17,9 +17,14 @@ const teacherShema = new Shema({
         type: String,
         required: true,
     },
+    dateOfBirth: {
+        type: String,
+
+    },
     imgUrl: {
         type: String,
-      
+        default: ''
+
     },
     phoneNumber: {
         type: String,
@@ -30,21 +35,15 @@ const teacherShema = new Shema({
     role: {
         type: String,
     },
-    isAdmin: {
-        type: Boolean,
-        default: false
+    address: {
+        type: String,
     },
+    nationalId: {
+        type: String,
+    },
+    salary: { type: Number, default: 0 },
     gender: { type: String, enum: ['Male', 'Female'] },
 
-    subjects: [{ name: String }],
-
-    accessToken: {
-        type: String,
-
-    },
-
-
-    chats: [{ type: ObjectId, ref: 'Student' }]
 },
     { timestamps: true })
 
