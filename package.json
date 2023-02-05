@@ -1,7 +1,7 @@
 {
   "name": "graduation_backend",
   "version": "1.0.0",
-  "description": "the backend for graduation project",
+  "description": "",
   "main": "app.js",
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -10,17 +10,22 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.6.5"
+    "mongoose": "^6.9.0"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
+  "engines": {
+    "node": "14.x"
   },
   "scripts": {
     "start": "node app.js"
   },
-  "engines": {
-    "node": "16.x"
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/sabahya3/graduation_backend.git"
   },
-  "author": "Ahmed EL Sabahy",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sabahya3/graduation_backend/issues"
+  },
+  "homepage": "https://github.com/sabahya3/graduation_backend#readme"
 }
