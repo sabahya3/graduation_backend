@@ -14,7 +14,7 @@ app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 app.use('/v1/admin',adminRouter)
-app.get('/try',(req , res)=>{
+app.get('/tr',(req , res)=>{
     res.json({success:'server successful'})
 })
 
