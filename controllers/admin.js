@@ -94,6 +94,7 @@ register = async (req, res) => {
             if (!rf_token)
                 return res.status(400).json({ msg: "please login or register1" });
 
+         else{
             jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, Admin) => {
                 if (err) {
                     return res.status(400).json({ msg: "Please Login or Register2" });
@@ -101,6 +102,7 @@ register = async (req, res) => {
                 const accessToken = createaccessToken({ id: Admin.id, role: 'Admin' });
                 res.json({ accessToken });
             });
+         }
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }

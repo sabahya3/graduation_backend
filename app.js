@@ -5,7 +5,7 @@ const cors = require('cors')
 require("dotenv").config();
 
 
-const connectMongoose = require('./config/mongoose_connection')
+const clusterServer=require('./config/cluster_server')
 const adminRouter=require('./routes/admin')
 
 
@@ -22,11 +22,7 @@ const port = process.env.PORT || 3000
 
 
 
-connectMongoose(() => {
-    app.listen(port, () => {
-        console.log(`Server is Running at Port ${port}`)
-    })
-})
+clusterServer(app)
 
 
 
