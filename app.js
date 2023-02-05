@@ -22,7 +22,7 @@ app.use('/v1/admin',adminRouter)
 app.use('/v1/subject',isAuthorized , subjectRouter)
 app.use('/v1/teacher',isAuthorized , teacherRouter)
 
-app.get('/test',isAuthorized , (req , res)=>{
+app.get('/test', (req , res)=>{
     res.json({success:'new deploy is working now..'})
 })
 
