@@ -10,18 +10,18 @@ const classSchema = new Shema({
 
     },
 
-    gradeId: {
-        type: ObjectId,
-        ref: 'Grade'
+    studentsCount:{type:Number , default:0},
 
-    },
+    subjectToTeacher: [{
+        subject: {
+            type: ObjectId,
+            ref: 'Subject'
+        }, teacher: {
+            type: ObjectId,
+            ref: 'Teacher'
+        }
+    }]
 
-    teachers: [{
-        type: ObjectId,
-        ref: 'Teacher'
-
-    }],
-   
 
 },
 

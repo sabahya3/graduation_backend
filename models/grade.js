@@ -20,6 +20,8 @@ const gradeSchema = new Shema({
         type: ObjectId,
         ref: 'Subject'
     }]
+    ,
+    studentsCount:{type:Number , default:0}
 
 
 
