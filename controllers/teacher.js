@@ -87,7 +87,7 @@ const updateTeacher = async (req, res) => {
         const id = req.params.id
 
         if (!id) return res.status(405).json({ msg: 'Please Enter The Teacher Id' })
-        const updatedTeacher = await Teacher.findByIdAndUpdat(id, {
+        const updatedTeacher = await Teacher.findByIdAndUpdate(id, {
             $set: {
                 name,
                 password,

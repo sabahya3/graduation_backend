@@ -49,7 +49,7 @@ const getGrades= async(req,res)=>{
             const id = req.params.id
     
             if (!id) return res.status(405).json({ msg: 'Please Enter The Grade Id' })
-            const updatedGrade = await Grade.findByIdAndUpdat(id, {
+            const updatedGrade = await Grade.findByIdAndUpdate(id, {
                 $set: {
                     name,subjects , classes , studentsCount 
                 }

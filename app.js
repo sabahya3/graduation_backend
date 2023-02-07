@@ -18,6 +18,8 @@ app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 
+// client - middleware > se4rver 
+
 // routes 
 app.use('/v1/admin',adminRouter)
 app.use('/v1/subject',isAuthorized , subjectRouter)

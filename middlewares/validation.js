@@ -5,7 +5,7 @@ const isAuthorized = async (req, res, next) => {
 
     const id = req.body.id
 
-    if (!token) return res.json({ msg: 'The access token is required' })
+    if (!token) return res.status(400).json({ msg: 'The access token is required' })
 
     try {
         const user = await Admin.findOne( {_id:id} )

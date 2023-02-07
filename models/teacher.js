@@ -43,8 +43,9 @@ const teacherShema = new Shema({
     },
     salary: { type: Number, default: 0 },
     gender: { type: String, enum: ['Male', 'Female'] },
-
+    
 },
+
     { timestamps: true })
 
 
