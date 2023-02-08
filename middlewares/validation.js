@@ -2,8 +2,8 @@ const Admin = require('../models/admin')
 const jwt = require('jsonwebtoken')
 const isAuthorized = async (req, res, next) => {
     const  token = req.headers.authorization.split(' ')[1];
-
-    const id = req.body.id
+    const userId = req.query.userId
+    const id = userId
 
     if (!token) return res.status(400).json({ msg: 'The access token is required' })
 
