@@ -12,10 +12,16 @@ const teacherRouter = require('./routes/teacher');
 const gradeRouter = require('./routes/grade');
 const isAuthorized = require('./middlewares/validation');
 
+const corsOptions = {
+    credentials: true,
+    origin: ['http://localhost:3000', 'https://schkolla-mariamkilany.vercel.app/'],
+};
 
 const app = express()
+
+
 app.use(cors(
-    {credentials: true }
+    corsOptions
 ))
 app.use(cookieParser())
 app.use(express.json())
