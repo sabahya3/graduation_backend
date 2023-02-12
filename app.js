@@ -14,7 +14,7 @@ const isAuthorized = require('./middlewares/validation');
 
 const corsOptions = {
     credentials: true,
-    origin: ['http://localhost:3000', 'https://schkolla-mariamkilany.vercel.app/'],
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000','https://schkolla-mariamkilany.vercel.app/'],
 };
 
 const app = express()
