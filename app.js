@@ -41,8 +41,7 @@ app.get('/test', (req, res) => {
     res.json({ success: 'its now workin like a charm' })
 })
 
-// port number
-const port = process.env.PORT || 3000
+
 
 
 

@@ -50,7 +50,7 @@ const addTeacher = async (req, res) => {
 const getAllTeachers = async (req, res) => {
     try {
 
-        const teachers = await Teacher.find({}, { name: 1, imgUrl: 1, phoneNumber: 1, gender: 1, role: 1, email: 1 })
+        const teachers = await Teacher.find({}, { name: 1, imgUrl: 1, phoneNumber: 1, gender: 1, role: 1, email: 1  , nationalId:1})
 
         if (teachers) return res.status(200).json(teachers)
         if (!teachers) return res.status(404).json({ msg: "An Error Occured" })

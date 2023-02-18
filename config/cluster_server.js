@@ -3,7 +3,7 @@
 
 const createServerWithCluster = (app) => {
     const connectToDb = require('./mongoose_connection')
-    const port = process.env.PORT || 3000
+    const port = process.env.PORT || 4000
 
     // cluster part ...
     const numOfCpus = require('os').cpus().length
