@@ -43,6 +43,20 @@ const getGrades= async(req,res)=>{
         
         }
 
+        const getGradeClasses= async(req,res)=>{
+            try{
+        
+            
+                const id = req.params.id
+            const gradeClasses = await  Grade.findOne({_id:id},{classes:1}).populate('classes' ,  { name: 1, _id: 0})
+            
+            if(gradeClasses) res.status(200).json(gradeClasses)
+            }catch(e){
+                res.status(401).json({msg:'An error has occured'})
+            }
+            
+            }
+
     const updateGrade= async(req,res)=>{
         const {name,subjects , classes , studentsCount } = req.body
         try {
@@ -78,7 +92,20 @@ const getGrades= async(req,res)=>{
             } catch (e) { res.status(404).json({ msg: "An Error Occured" }) }
         }
 
+          
+        const deleteClassFromGrade = async (req, res) => {
         
+            try {
+                const {classId , gradeId} = req.body
+          
+
+               const deleted = await Grade.findOneAndUpdate({_id:gradeId},{$pull:{classes:classId}})
+        
+                if (deleted) return res.status(202 ).json({msg:'deleted'})
+        
+            } catch (e) { res.status(404).json({ msg: e.message }) }
+        }
+
 
 const getGradeById= async (req, res) => {
     try {
@@ -97,5 +124,7 @@ const getGradeById= async (req, res) => {
             updateGrade,
             deleteGrade,
             getGradeById,
-            getGradeSubjects
+            getGradeSubjects,
+            getGradeClasses,
+            deleteClassFromGrade
         }
