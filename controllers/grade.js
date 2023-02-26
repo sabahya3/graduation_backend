@@ -48,7 +48,7 @@ const getGrades= async(req,res)=>{
         
             
                 const id = req.params.id
-            const gradeClasses = await  Grade.findOne({_id:id},{classes:1}).populate('classes' ,  { name: 1, _id: 0})
+            const gradeClasses = await  Grade.findOne({_id:id},{classes:1}).populate('classes' ,  { name: 1, _id: 1})
             
             if(gradeClasses) res.status(200).json(gradeClasses)
             }catch(e){
