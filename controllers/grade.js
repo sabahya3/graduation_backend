@@ -34,7 +34,7 @@ const getGrades= async(req,res)=>{
     
         
             const id = req.params.id
-        const gradeSubjects = await  Grade.findOne({_id:id},{subjects:1}).populate('subjects' ,  { name: 1, _id: 0})
+        const gradeSubjects = await  Grade.findOne({_id:id},{subjects:1}).populate('subjects' ,  { name: 1, _id: 1})
         
         if(gradeSubjects) res.status(200).json(gradeSubjects)
         }catch(e){
@@ -48,7 +48,7 @@ const getGrades= async(req,res)=>{
         
             
                 const id = req.params.id
-            const gradeClasses = await  Grade.findOne({_id:id},{classes:1}).populate('classes' ,  { name: 1, _id: 0})
+            const gradeClasses = await  Grade.findOne({_id:id},{classes:1}).populate('classes' ,  { name: 1, _id: 1})
             
             if(gradeClasses) res.status(200).json(gradeClasses)
             }catch(e){
