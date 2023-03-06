@@ -24,7 +24,8 @@ const addStudent = async (req, res) => {
         classId,
         adress,
 
-        elWasy
+        elWasy,
+        meanOfTransport
 
 
     } = req.body
@@ -54,7 +55,8 @@ const addStudent = async (req, res) => {
             classId,
             adress,
 
-            elWasy
+            elWasy,
+            meanOfTransport
         }).save()
 
         if (newStudent) return res.status(201).json(newStudent)

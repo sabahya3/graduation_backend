@@ -41,6 +41,7 @@ const studentSchema = new Shema({
         lat: String,
         lang: String
     },
+    meanOfTransport:{type:String , default:''},
 
     elWasy:[]
 
