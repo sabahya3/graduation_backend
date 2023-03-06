@@ -27,9 +27,6 @@ const studentSchema = new Shema({
 
     },
 
-    father: { type: ObjectId, ref: 'Parent' },
-
-    mother: { type: ObjectId, ref: 'Parent' },
 
     age: { type: Number, reqired: true },
 
@@ -45,6 +42,7 @@ const studentSchema = new Shema({
         lang: String
     },
 
+    elWasy:[]
 
    
 },
@@ -55,3 +53,29 @@ const studentSchema = new Shema({
 
 
 module.exports = mongoose.model('Student', studentSchema);
+
+/*{
+    name,
+
+    email,
+
+    password,
+
+    nationalId,
+
+    imgUrl,
+
+
+    age,
+
+    gender,
+
+    grade,
+
+    classId,
+    adress,
+
+    elWasy
+
+   
+} */
