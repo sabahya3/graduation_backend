@@ -2,7 +2,7 @@ const router = require('express').Router()
 
 const studentCtrl=require('../controllers/student')
 
-router.post('/addTeacher',studentCtrl.addStudent)
+router.post('/addStudent',studentCtrl.addStudent)
 
 
 
