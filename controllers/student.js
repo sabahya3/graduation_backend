@@ -45,7 +45,6 @@ const addStudent = async (req, res) => {
 
             imgUrl,
 
-
             age,
 
             gender,
