@@ -17,7 +17,7 @@ const addStudent = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newStudent = await new Student({
-            name, email, password: hashedPassword, nationalId, imgUrl, age, gender, grade,
+            name, email, password:hashedPassword, nationalId, imgUrl, age, gender, grade,
             classId, adress, elWasy, meanOfTransport
         }).save()
 
