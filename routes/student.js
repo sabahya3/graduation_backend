@@ -8,6 +8,7 @@ router.delete('/deleteStudent/:id',studentCtrl.updateStudent)
 router.get('/getStudentById/:id',studentCtrl.getStudentById)
 router.get('/getClassStudents/:classId',studentCtrl.getClassStudents)
 router.get('/getGradeStudents/:gradeId',studentCtrl.getGradeStudents)
+router.get('/getAllStudents',studentCtrl.getAllStudents)
 
 
 
