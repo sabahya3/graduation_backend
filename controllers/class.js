@@ -65,4 +65,17 @@ const deleteClass = async (req, res) => {
 }
 
 
-module.exports = { addNewClassToGrade, getClassById, updateClass, deleteClass }
+const getAllClasses = async (req, res) => {
+    try {
+      const classes = await Class.find().populate('subjectToTeacher.subject').populate('subjectToTeacher.teacher');
+      if (classes.length > 0) {
+        return res.status(200).json(classes);
+      } else {
+        return res.status(404).json({ msg: "No classes found" });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ msg: "Internal server error" });
+    }
+  };
+module.exports = { addNewClassToGrade, getClassById, updateClass, deleteClass  , getAllClasses}

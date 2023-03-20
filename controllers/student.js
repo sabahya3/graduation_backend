@@ -17,7 +17,7 @@ const addStudent = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newStudent = await new Student({
-            name, email, password:hashedPassword, nationalId, imgUrl, age, gender, grade,
+            name, email, password: hashedPassword, nationalId, imgUrl, age, gender, grade,
             classId, adress, elWasy, meanOfTransport
         }).save()
 
@@ -98,17 +98,17 @@ getGradeStudents = async (req, res) => {
 };
 getAllStudents = async (req, res) => {
     try {
-      const students = await Student.find().populate('grade').populate('classId');
-      if (students.length > 0) {
-        return res.status(200).json(students);
-      } else {
-        return res.status(404).json({ msg: "No students found" });
-      }
+        const students = await Student.find().populate('grade').populate('classId');
+        if (students.length > 0) {
+            return res.status(200).json(students);
+        } else {
+            return res.status(404).json({ msg: "No students found" });
+        }
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ msg: "Internal server error" });
+        console.error(error);
+        return res.status(500).json({ msg: "Internal server error" });
     }
-  };
+};
 
 
-module.exports = { addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents  , getAllStudents}
+module.exports = { addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
