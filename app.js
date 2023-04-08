@@ -12,6 +12,7 @@ const teacherRouter = require('./routes/teacher');
 const gradeRouter = require('./routes/grade');
 const classRouter = require('./routes/class');
 const studentRouter = require('./routes/student');
+const securityRouter = require('./routes/security');
 const isAuthorized = require('./middlewares/validation');
 
 
@@ -40,6 +41,7 @@ app.use('/v1/teacher', isAuthorized, teacherRouter)
 app.use('/v1/grade', isAuthorized, gradeRouter)
 app.use('/v1/class', isAuthorized, classRouter)
 app.use('/v1/student',isAuthorized,  studentRouter)
+app.use('/v1/securityRouter',isAuthorized,  securityRouter)
 
 app.get('/test', (req, res) => {
     res.json({ success: 'its now workin like a charm' })

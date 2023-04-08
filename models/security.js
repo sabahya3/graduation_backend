@@ -25,19 +25,20 @@ const securitySchema = new Shema({
     },
     imgUrl: {
         type: String,
-      
+
+    },
+    
+    job: {
+        type: String,
+
     },
 
     age: { type: Number, reqired: true },
 
     gender: { type: String, enum: ['Male', 'Female'] },
 
+    salary: { type: Number, default: 0 },
 
-
-    accessToken: {
-        type: String,
-
-    },
 
 },
 
