@@ -35,7 +35,7 @@ const studentSchema = new Shema({
     grade: { type: ObjectId, ref: 'Grade' },
 
     classId: { type: ObjectId, ref: 'Class' },
- 
+
      // make a model 
     adress: {
         lat: String,

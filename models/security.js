@@ -35,7 +35,7 @@ const securitySchema = new Shema({
 
     age: { type: Number, reqired: true },
 
-    gender: { type: String, enum: ['Male', 'Female'] },
+    gender: { type: String, enum: ['ذكر', 'أنثى'] },
 
     salary: { type: Number, default: 0 },
 
