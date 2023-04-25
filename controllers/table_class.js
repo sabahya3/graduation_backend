@@ -138,7 +138,7 @@ const getAllWeekTables = async (req, res) => {
 // Get week table entry by ID
 const getWeekTableById = async (req, res) => {
     try {
-        const weekTable = await WeekTable.findById(req.params.id).populate('classId', 'name');
+        const weekTable = await WeekTable.findOne({classId:req.params.id}).populate('classId', 'name');
         if (!weekTable) return res.status(404).json({ msg: 'Week table entry not found' });
         res.json(weekTable);
     } catch (err) {
