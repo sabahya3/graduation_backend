@@ -121,13 +121,13 @@ const getSecurityMember = async (req, res) => {
 
 const getAllMembers = async (req, res) => {
     try {
-        const members = await Security.find().select('-updatedAt -__v');
+        const members = await Security.find().select('-updatedAt -__v').sort('name');
         return res.status(200).json(members);
     } catch (error) {
-
         return res.status(500).json({ msg: 'Failed to retrieve security members' });
     }
 };
+
 module.exports = {
     addSecurityMember,
     updateSecurityMember,

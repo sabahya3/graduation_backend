@@ -51,7 +51,18 @@ const updateClass = async (req, res) => {
         res.status(404).json({ msg: `An Error Occured : ${e.message}` })
     }
 }
-
+const subjectToTeacher =async (req, res) => {
+    
+    try {
+        const classId = req.params.id
+        const result = await Class.findOne({_id:classId},{subjectToTeacher:1,_id:0})
+      
+        if (result) res.status(202).json(result)
+    }
+    catch (e) {
+        res.status(404).json({ msg: `An Error Occured : ${e.message}` })
+    }
+}
 
 const deleteClass = async (req, res) => {
 
@@ -78,4 +89,4 @@ const getAllClasses = async (req, res) => {
       return res.status(500).json({ msg: "Internal server error" });
     }
   };
-module.exports = { addNewClassToGrade, getClassById, updateClass, deleteClass  , getAllClasses}
+module.exports = { addNewClassToGrade, getClassById, updateClass, deleteClass  , getAllClasses , subjectToTeacher}

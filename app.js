@@ -13,6 +13,7 @@ const gradeRouter = require('./routes/grade');
 const classRouter = require('./routes/class');
 const studentRouter = require('./routes/student');
 const securityRouter = require('./routes/security');
+const TableCellRouter = require('./routes/table_class');
 const isAuthorized = require('./middlewares/validation');
 
 
@@ -20,15 +21,15 @@ const app = express()
 
 
 app.use(
-    cors({
-      origin: [
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        ,'https://schkolla-mariamkilany.vercel.app/'
-      ],
-      credentials: true,
-    })
-  );
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      , 'https://schkolla-mariamkilany.vercel.app/'
+    ],
+    credentials: true,
+  })
+);
 app.use(cookieParser())
 app.use(express.json())
 
@@ -40,11 +41,13 @@ app.use('/v1/subject', isAuthorized, subjectRouter)
 app.use('/v1/teacher', isAuthorized, teacherRouter)
 app.use('/v1/grade', isAuthorized, gradeRouter)
 app.use('/v1/class', isAuthorized, classRouter)
-app.use('/v1/student',isAuthorized,  studentRouter)
-app.use('/v1/securityRouter',isAuthorized,  securityRouter)
+app.use('/v1/student', isAuthorized, studentRouter)
+app.use('/v1/securityRouter', isAuthorized, securityRouter)
+app.use('/v1/tableCellRouter', isAuthorized, TableCellRouter)
+
 
 app.get('/test', (req, res) => {
-    res.json({ success: 'its now workin like a charm' })
+  res.json({ success: 'its now workin like a charm' })
 })
 
 

@@ -4,26 +4,21 @@ const { ObjectId } = mongoose.Schema.Types;
 
 
 const weekTable = new Shema({
-    startDay: {
-        type: Number,
-        required: true
-
-    },
-
-    endDay: {
-        type: Number,
-        required: true
-
-    },
-
-    startHour: { type: Date, required: true },
-
-    endHour: { type: Date, required: true },
-    
-    lessons: [{
+    classId: {
         type: ObjectId,
-        ref: 'Lesson'
-    }],
+        ref: 'Class'
+    },
+
+    numOfDays: {
+        type: Number,
+        required: true
+
+    },
+
+    startTime: { type: Date, required: true },
+
+    endTime: { type: Date, required: true },
+
 
 },
 

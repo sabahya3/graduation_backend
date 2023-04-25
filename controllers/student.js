@@ -69,46 +69,48 @@ getStudentById = async (req, res) => {
     } catch (e) { res.status(404).json({ msg: "An Error Occured" }) }
 }
 
-getClassStudents = async (req, res) => {
+const getClassStudents = async (req, res) => {
     try {
-        const classStudents = await Student.find({ classId: req.params.classId });
-        if (classStudents.length > 0) {
-            return res.status(200).json(classStudents);
-        } else {
-            return res.status(404).json({ msg: "No students found for this class" });
-        }
+      const classStudents = await Student.find({ classId: req.params.classId }).sort({ name: 1 });
+      if (classStudents.length > 0) {
+        return res.status(200).json(classStudents);
+      } else {
+        return res.status(404).json({ msg: "No students found for this class" });
+      }
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Internal server error" });
+      console.error(error);
+      return res.status(500).json({ msg: "Internal server error" });
     }
-};
-
-getGradeStudents = async (req, res) => {
+  };
+  
+  const getGradeStudents = async (req, res) => {
     try {
-        const gradeStudents = await Student.find({ grade: req.params.gradeId }).select("-grade");
-        if (gradeStudents.length > 0) {
-            return res.status(200).json(gradeStudents);
-        } else {
-            return res.status(404).json({ msg: "No students found for this grade" });
-        }
+      const gradeStudents = await Student.find({ grade: req.params.gradeId }).select("-grade").sort({ name: 1 });
+      if (gradeStudents.length > 0) {
+        return res.status(200).json(gradeStudents);
+      } else {
+        return res.status(404).json({ msg: "No students found for this grade" });
+      }
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Internal server error" });
+      console.error(error);
+      return res.status(500).json({ msg: "Internal server error" });
     }
-};
-getAllStudents = async (req, res) => {
+  };
+  
+  const getAllStudents = async (req, res) => {
     try {
-        const students = await Student.find().populate('grade').populate('classId');
-        if (students.length > 0) {
-            return res.status(200).json(students);
-        } else {
-            return res.status(404).json({ msg: "No students found" });
-        }
+      const students = await Student.find().populate('grade').populate('classId').sort({ name: 1 });
+      if (students.length > 0) {
+        return res.status(200).json(students);
+      } else {
+        return res.status(404).json({ msg: "No students found" });
+      }
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Internal server error" });
+      console.error(error);
+      return res.status(500).json({ msg: "Internal server error" });
     }
-};
+  };
+  
 
 
 module.exports = { addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
