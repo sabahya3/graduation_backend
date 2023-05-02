@@ -8,17 +8,31 @@ const weekTable = new Shema({
         type: ObjectId,
         ref: 'Class'
     },
-
-    numOfDays: {
-        type: Number,
-        required: true
-
+    startTime: { type: String, required: true },
+    endTime: { type: String, required: true },
+    duration:{
+        type:String,
+        required:true
+    }
+    ,
+    lessonNum:{
+        type:Number,
+        required:true
+    }
+    ,
+    firstDay:{
+    type:Number,
+    required:true
     },
 
-    startTime: { type: Date, required: true },
-
-    endTime: { type: Date, required: true },
-
+    lastDay:{
+        type:Number,
+        required:true
+    },
+    lessonNum:{
+        type:Number,
+        required:true
+    }
 
 },
 

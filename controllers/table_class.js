@@ -4,18 +4,16 @@ const TableCell = require('../models/table_classes');
 // Create a new TableCell record
 const addNewCellInTable = async (req, res) => {
     try {
-        const { classId, day, subject, startAt, endAt, teacher } = req.body;
-        const newTableCell = await new TableCell({ classId, day, subject, startAt, endAt, teacher }).save();
+        const { classId, day, subject, teacher } = req.body;
+        const newTableCell = await new TableCell({ classId, day, subject, teacher }).save();
         if (newTableCell) {
             const result = await TableCell.findOne({ _id: newTableCell._id }).populate('teacher', 'name').populate('subject', 'name').populate('classId', 'name')
             return res.status(201).json({
                 day: result.day,
                 subject: result.subject ? result.subject.name : null,
-
                 teacher: result.teacher ? result.teacher.name : null,
                 className: result.classId ? result.classId.name : null,
-                startAt: result.startAt,
-                endAt: result.endAt,
+                _id:result._id
             });
         }
         return res.status(404).json({ msg: 'an error occured' });
@@ -35,13 +33,12 @@ const getCellsInTableByClassId = async (req, res) => {
             .populate('classId', 'name')
             .sort({ day: 1 }); // Sort by day ascending
 
-        const simplifiedTableCells = tableCells.map(({ day, subject, startAt, endAt, teacher, classId }) => ({
+        const simplifiedTableCells = tableCells.map(({_id, day, subject, teacher, classId }) => ({
             day,
             subject: subject ? subject.name : null,
             teacher: teacher ? teacher.name : null,
             className: classId ? classId.name : null,
-            startAt,
-            endAt,
+            _id
         }));
 
         res.json(simplifiedTableCells);
@@ -61,8 +58,6 @@ const getCellInTheTableById = async (req, res) => {
         res.json({
             day: tableClass.day,
             subject: tableClass.subject ? tableClass.subject.name : null,
-            startAt: tableClass.startAt,
-            endAt: tableClass.endAt,
             teacher: tableClass.teacher ? tableClass.teacher.name : null,
             className: tableClass.classId
         });
@@ -74,17 +69,15 @@ const getCellInTheTableById = async (req, res) => {
 
 // Update a specific TableCell record
 const updateCellInTableById = async (req, res) => {
-    const { day, subject, startAt, endAt, teacher, classId } = req.body
+    const { day, subject, teacher, classId } = req.body
     try {
-        const tableClass = await TableCell.findByIdAndUpdate(req.params.id, { $set: { day, subject, startAt, endAt, teacher, classId } }, { new: true }).populate('subject', 'name').populate('teacher', 'name').populate('classId', 'name');
+        const tableClass = await TableCell.findByIdAndUpdate(req.params.id, { $set: { day, subject, teacher, classId } }, { new: true }).populate('subject', 'name').populate('teacher', 'name').populate('classId', 'name');
         if (!tableClass) {
             return res.status(404).send('cell not found');
         }
         res.json({
             day: tableClass.day,
             subject: tableClass.subject ? tableClass.subject.name : null,
-            startAt: tableClass.startAt,
-            endAt: tableClass.endAt,
             teacher: tableClass.teacher ? tableClass.teacher.name : null,
             className: tableClass.classId
         });
@@ -115,8 +108,8 @@ const WeekTable = require('../models/week_table');
 // Create new week table entry
 const createWeekTable = async (req, res) => {
     try {
-        const { classId, numOfDays, startTime, endTime } = req.body;
-        const newWeekTable = await WeekTable.create({ classId, numOfDays, startTime, endTime });
+        const { classId,duration,startTime,endTime,firstDay,lastDay,lessonNum } = req.body;
+        const newWeekTable = await WeekTable.create({ classId,duration,startTime,endTime,firstDay,lastDay,lessonNum});
         res.status(201).json(newWeekTable);
     } catch (err) {
         console.error(err);
@@ -150,10 +143,10 @@ const getWeekTableById = async (req, res) => {
 // Update week table entry by ID
 const updateWeekTableById = async (req, res) => {
     try {
-        const { classId, numOfDays, startTime, endTime } = req.body;
+        const { classId, numOfDays,lessonNum, startTime, endTime } = req.body;
         const updatedWeekTable = await WeekTable.findByIdAndUpdate(
             req.params.id,
-            { classId, numOfDays, startTime, endTime },
+            { classId, numOfDays,lessonNum, startTime, endTime },
             { new: true }
         ).populate('classId', 'name');
         if (!updatedWeekTable) return res.status(404).json({ msg: 'Week table entry not found' });
@@ -187,8 +180,8 @@ module.exports = {
     getCellsInTableByClassId,
     deleteCellById,
     createWeekTable,
-     getAllWeekTables,
-      getWeekTableById, 
-      updateWeekTableById, 
-      deleteWeekTableById
+    getAllWeekTables,
+    getWeekTableById, 
+    updateWeekTableById, 
+    deleteWeekTableById
 }
