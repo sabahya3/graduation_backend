@@ -6,6 +6,9 @@ router.post('/addNewCellInTable', tableCellCtrl.addNewCellInTable)
 router.get('/getCellInTheTableById/:id', tableCellCtrl.getCellInTheTableById)
 router.get('/getCellsInTableByClassId/:id', tableCellCtrl.getCellsInTableByClassId)
 router.delete('/deleteCellById/:id', tableCellCtrl.deleteCellById)
+//deleteWeekTableCellsByClassId
+router.delete('/deleteWeekTableCellsByClassId/:classId', tableCellCtrl.deleteWeekTableCellsByClassId)
+
 router.patch('/updateCellInTableById/:id', tableCellCtrl.updateCellInTableById)
 
 
