@@ -10,6 +10,8 @@ router.get('/getAllTeachers',teacherCtrl.getAllTeachers)
 
 router.delete('/deleteTeacher/:id',teacherCtrl.deleteTeacher)
 router.patch('/updateTeacher/:id',teacherCtrl.updateTeacher)
+router.get('/getClassByTeacherId/:teacherId',teacherCtrl.getClassByTeacherId)
+
 
 
 

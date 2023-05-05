@@ -9,6 +9,10 @@ router.get('/getStudentById/:id',studentCtrl.getStudentById)
 router.get('/getClassStudents/:classId',studentCtrl.getClassStudents)
 router.get('/getGradeStudents/:gradeId',studentCtrl.getGradeStudents)
 router.get('/getAllStudents',studentCtrl.getAllStudents)
+router.get('/getHomePageCounts',studentCtrl.getHomePageCounts)
+router.get('/getGenderCounts',studentCtrl.getGenderCounts)
+
+
 
 
 

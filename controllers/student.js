@@ -1,6 +1,8 @@
 const Student = require('../models/student')
+const Teacher = require('../models/teacher');
+const Security = require('../models/security');
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const addStudent = async (req, res) => {
     const {
@@ -113,4 +115,35 @@ const getClassStudents = async (req, res) => {
   
 
 
-module.exports = { addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
+
+  const getHomePageCounts = async (req, res) => {
+    try {
+      const studentCount = await Student.countDocuments();
+      const teacherCount = await Teacher.countDocuments();
+      const securityCount = await Security.countDocuments();
+      return res.status(200).json({ studentCount, teacherCount, securityCount });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ msg: "Internal server error" });
+    }
+  }
+  
+  
+  
+
+const getGenderCounts = async (req, res) => {
+  try {
+    const maleCount = await Student.countDocuments({ gender: 'ذكر' });
+    const femaleCount = await Student.countDocuments({ gender: 'أنثى' });
+    return res.status(200).json({ maleCount, femaleCount });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+}
+
+  
+  
+  
+  
+module.exports = { getGenderCounts,getHomePageCounts,addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
