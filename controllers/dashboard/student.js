@@ -1,6 +1,6 @@
-const Student = require('../models/student')
-const Teacher = require('../models/teacher');
-const Security = require('../models/security');
+const Student = require('../../models/student')
+const Teacher = require('../../models/teacher');
+const Security = require('../../models/security');
 
 const bcrypt = require("bcryptjs");
 
@@ -143,6 +143,7 @@ const getGenderCounts = async (req, res) => {
 }
 
   
+
   
   
   

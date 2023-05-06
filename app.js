@@ -15,6 +15,10 @@ const studentRouter = require('./routes/student');
 const securityRouter = require('./routes/security');
 const TableCellRouter = require('./routes/table_class');
 const isAuthorized = require('./middlewares/validation');
+//---------- mobile --------
+
+const studentMobRouter = require('./routes/mobile/student');
+
 
 
 const app = express()
@@ -44,6 +48,8 @@ app.use('/v1/class', isAuthorized, classRouter)
 app.use('/v1/student',  isAuthorized,studentRouter)
 app.use('/v1/securityRouter', isAuthorized, securityRouter)
 app.use('/v1/tableCellRouter', isAuthorized, TableCellRouter)
+app.use('/studentMob', studentMobRouter)
+
 
 
 app.get('/test', (req, res) => {

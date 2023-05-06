@@ -1,6 +1,6 @@
-const Teacher = require('../models/teacher')
-const Class = require('../models/class')
-const Grade = require('../models/grade')
+const Teacher = require('../../models/teacher')
+const Class = require('../../models/class')
+const Grade = require('../../models/grade')
 
 
 

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const studentCtrl=require('../controllers/student')
+const studentCtrl=require('../controllers/dashboard/student')
 
 router.post('/addStudent', studentCtrl.addStudent)
 router.patch('/updateStudent/:id',studentCtrl.updateStudent)

@@ -1,5 +1,5 @@
 
-const TableCell = require('../models/table_classes');
+const TableCell = require('../../models/table_classes');
 
 // Create a new TableCell record
 const addNewCellInTable = async (req, res) => {
@@ -116,7 +116,7 @@ const deleteWeekTableCellsByClassId = async (req, res) => {
 
 
 // week table part 
-const WeekTable = require('../models/week_table');
+const WeekTable = require('../../models/week_table');
 
 // Create new week table entry
 const createWeekTable = async (req, res) => {

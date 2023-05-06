@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const securityCtrl=require('../controllers/security_man')
+const securityCtrl=require('../controllers/dashboard/security_man')
 
 router.post('/addSecurityMember',securityCtrl.addSecurityMember)
 router.patch('/updateSecurityMember/:id',securityCtrl.updateSecurityMember)

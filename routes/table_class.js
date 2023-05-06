@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const tableCellCtrl = require('../controllers/table_class')
+const tableCellCtrl = require('../controllers/dashboard/table_class')
 
 router.post('/addNewCellInTable', tableCellCtrl.addNewCellInTable)
 router.get('/getCellInTheTableById/:id', tableCellCtrl.getCellInTheTableById)

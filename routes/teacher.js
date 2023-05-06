@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const teacherCtrl=require('../controllers/teacher')
+const teacherCtrl=require('../controllers/dashboard/teacher')
 
 router.post('/addTeacher',teacherCtrl.addTeacher)
 

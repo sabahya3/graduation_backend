@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const classCtrl=require('../controllers/class')
+const classCtrl=require('../controllers/dashboard/class')
 
 router.post('/addNewClassToGrade',classCtrl.addNewClassToGrade)
 router.get('/getClassById/:id',classCtrl.getClassById)

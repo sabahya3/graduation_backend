@@ -1,5 +1,5 @@
-const Class = require('../models/class')
-const Grade = require('../models/grade')
+const Class = require('../../models/class')
+const Grade = require('../../models/grade')
 
 
 const addNewClassToGrade = async (req, res) => {
