@@ -58,7 +58,7 @@ const login = async (req, res) => {
 
   try {
     // Find the student with the provided email
-    const security = await Security.findOne({ email }).select({ name: 1, imgUrl: 1 })
+    const security = await Security.findOne({ email }).select({ name: 1, imgUrl: 1 , email:1 , password:1 })
 
     // If no student found, send an error response
     if (!security) {
