@@ -10,8 +10,8 @@ const attendanceSchema = new Shema({
 
     },
     notificationType: {
-        type: String,
-        enum: ['Enter', 'Leave']
+        type: String
+      
     },
 
     message: String,
