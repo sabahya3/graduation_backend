@@ -39,7 +39,7 @@ const takeAttendance = async (req, res) => {
 
       const skip = (page - 1) * limit; // calculate the number of records to skip based on the current page
   
-      const result = await Attendance.find({ studentId }).select({studentId:-1 , __v:-1 , updatedAt:-1 })
+      const result = await Attendance.find({ studentId }).select({studentId:0 , __v:0 , updatedAt:0 })
       .populate('securityId', 'name') 
       .skip(skip)
       .limit(limit)
