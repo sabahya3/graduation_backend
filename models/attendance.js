@@ -18,6 +18,8 @@ const attendanceSchema = new Shema({
 
     scanLocation: { lat: String, lang: String },
 
+    locationName:String,
+
     securityId: {
         type: ObjectId,
         ref: 'Security'

@@ -18,6 +18,7 @@ const isAuthorized = require('./middlewares/validation');
 //---------- mobile --------
 
 const studentMobRouter = require('./routes/mobile/student');
+const securityMobRouter = require('./routes/mobile/security');
 
 
 
@@ -48,7 +49,11 @@ app.use('/v1/class', isAuthorized, classRouter)
 app.use('/v1/student',  isAuthorized,studentRouter)
 app.use('/v1/securityRouter', isAuthorized, securityRouter)
 app.use('/v1/tableCellRouter', isAuthorized, TableCellRouter)
+//------------Mob-----------------------
 app.use('/studentMob', studentMobRouter)
+app.use('/securityMob', securityMobRouter)
+
+
 
 
 
