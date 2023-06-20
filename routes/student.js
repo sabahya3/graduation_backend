@@ -12,6 +12,7 @@ router.get('/getAllStudents',studentCtrl.getAllStudents)
 router.get('/getHomePageCounts',studentCtrl.getHomePageCounts)
 router.get('/getGenderCounts',studentCtrl.getGenderCounts)
 router.get('/getAttendance/:id',studentCtrl.getAttendanceDocuments)
+router.get('/getAttendanceDays/:id',studentCtrl.getAttendanceDays)
 
 
 

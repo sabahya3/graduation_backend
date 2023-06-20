@@ -298,4 +298,31 @@ function calculateAttendanceDays(attendanceArray) {
 }
 
 
-module.exports = { getAttendanceDocuments, getGenderCounts, getHomePageCounts, addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
+//----------
+getAttendanceDays = async (req, res) => {
+  const id = req.params.id;
+  const result = await Attendance.find({ studentId: id }, { createdAt: 1, _id: 0 }).lean();
+
+  if (result) {
+    const attendanceDays = result.map((e) => {
+      const dateObj = new Date(e.createdAt);
+      const options = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        timeZoneName: 'short'
+      };
+      return dateObj.toLocaleString('en-US', options);
+    });
+    return res.status(200).json(attendanceDays);
+  }
+
+  return res.status(200).json([]);
+}
+
+
+module.exports = { getAttendanceDays, getAttendanceDocuments, getGenderCounts, getHomePageCounts, addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
