@@ -8,9 +8,8 @@ const TableClass = new Shema({
     classId:{ type: ObjectId, ref: 'Class' },
     day: Number,
     subject: { type: ObjectId, ref: 'Subject' },
-    startAt: { type: Date, default: Date.now },
-    endAt: { type: Date, default: Date.now }
-  , teacher: { type: ObjectId, ref: 'Teacher' },
+    time:{type: String, required: true},
+    teacher: { type: ObjectId, ref: 'Teacher' },
 },
 
 

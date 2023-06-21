@@ -4,15 +4,17 @@ const TableCell = require('../models/table_classes');
 // Create a new TableCell record
 const addNewCellInTable = async (req, res) => {
     try {
-        const { classId, day, subject, teacher } = req.body;
-        const newTableCell = await new TableCell({ classId, day, subject, teacher }).save();
+        const { classId, day, subject, teacher ,time } = req.body;
+        const newTableCell = await new TableCell({ classId, day, subject, teacher ,time }).save();
         if (newTableCell) {
-            const result = await TableCell.findOne({ _id: newTableCell._id }).populate('teacher', 'name').populate('subject', 'name').populate('classId', 'name')
+            const result = await TableCell.findOne({ _id: newTableCell._id }).populate('teacher', 'name').populate('subject', 'name').populate('classId', 'name');
+            // console.log(newTableCell)
             return res.status(201).json({
                 day: result.day,
                 subject: result.subject ? result.subject.name : null,
                 teacher: result.teacher ? result.teacher.name : null,
                 className: result.classId ? result.classId.name : null,
+                time: result.time?result.time:null,
                 _id: result._id
             });
         }
@@ -33,10 +35,11 @@ const getCellsInTableByClassId = async (req, res) => {
             .populate('classId', 'name')
             .sort({ day: 1 }); // Sort by day ascending
 
-        const simplifiedTableCells = tableCells.map(({ _id, day, subject, teacher, classId }) => ({
+        const simplifiedTableCells = tableCells.map(({ _id, day, subject, teacher, time,classId }) => ({
             day,
             subject: subject ? subject.name : null,
             teacher: teacher ? teacher.name : null,
+            time,
             className: classId ? classId.name : null,
             _id
         }));
@@ -59,6 +62,7 @@ const getCellInTheTableById = async (req, res) => {
             day: tableClass.day,
             subject: tableClass.subject ? tableClass.subject.name : null,
             teacher: tableClass.teacher ? tableClass.teacher.name : null,
+            time:tableClass.time?tableClass.time:null,
             className: tableClass.classId
         });
     } catch (err) {
