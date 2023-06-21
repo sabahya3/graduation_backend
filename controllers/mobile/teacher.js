@@ -70,7 +70,9 @@ const getTeacherTable = async (req, res) => {
   const getTeacherClasses = async (req, res) => {
     try {
       const teacherId = req.params.teacherId;
-      const classes = await Class.find({ 'subjectToTeacher.teacher': teacherId });
+      const classes = await Class.find({ 'subjectToTeacher.teacher': teacherId })
+        .populate('subjectToTeacher.subject')
+        .populate('subjectToTeacher.teacher');
       const classIds = classes.map((c) => c._id);
       const grades = await Grade.find({ classes: { $in: classIds } });
   
@@ -80,13 +82,26 @@ const getTeacherTable = async (req, res) => {
           classes
             .filter((c) => grade.classes.includes(c._id))
             .forEach((c) => {
-              const gradeClass = {
-                gradeName: grade.name,
-                gradeId: grade._id,
-                className: c.name,
-                classId: c._id,
-              };
-              gradeClasses.push(gradeClass);
+              const subjects = c.subjectToTeacher
+                .filter((subjectToTeacher) => {
+                  return (
+                    subjectToTeacher.teacher &&
+                    subjectToTeacher.teacher._id.toString() === teacherId &&
+                    subjectToTeacher.subject !== null
+                  );
+                })
+                .map((subjectToTeacher) => ({
+                  gradeName: grade.name,
+                  gradeId: grade._id,
+                  className: c.name,
+                  classId: c._id,
+                  subjectName: subjectToTeacher.subject.name,
+                  subjectId: subjectToTeacher.subject._id,
+                }));
+  
+              if (subjects.length > 0) {
+                gradeClasses.push(...subjects);
+              }
             });
         });
   
@@ -99,5 +114,6 @@ const getTeacherTable = async (req, res) => {
       return res.status(500).json({ msg: "Internal server error" });
     }
   };
+  
   
 module.exports = { login, getTeacherTable , getTeacherClasses }
