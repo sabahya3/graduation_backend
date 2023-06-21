@@ -47,7 +47,7 @@ app.use(express.json())
 // routes 
 app.use('/v1/admin', adminRouter)
 app.use('/v1/subject', isAuthorized, subjectRouter)
-app.use('/v1/teacher',teacherRouter)
+app.use('/v1/teacher',  isAuthorized,teacherRouter)
 app.use('/v1/grade', isAuthorized, gradeRouter)
 app.use('/v1/class', isAuthorized, classRouter)
 app.use('/v1/student',  isAuthorized,studentRouter)
