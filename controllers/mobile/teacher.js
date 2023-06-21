@@ -1,6 +1,7 @@
 const Teacher = require('../../models/teacher')
 const TableClass = require('../../models/table_classes')
 const Grade = require('../../models/grade')
+const Class = require('../../models/class')
 
 
 
@@ -66,4 +67,37 @@ const getTeacherTable = async (req, res) => {
   };
   
 
-module.exports = { login, getTeacherTable }
+  const getTeacherClasses = async (req, res) => {
+    try {
+      const teacherId = req.params.teacherId;
+      const classes = await Class.find({ 'subjectToTeacher.teacher': teacherId });
+      const classIds = classes.map((c) => c._id);
+      const grades = await Grade.find({ classes: { $in: classIds } });
+  
+      if (grades.length > 0) {
+        const gradeClasses = [];
+        grades.forEach((grade) => {
+          classes
+            .filter((c) => grade.classes.includes(c._id))
+            .forEach((c) => {
+              const gradeClass = {
+                gradeName: grade.name,
+                gradeId: grade._id,
+                className: c.name,
+                classId: c._id,
+              };
+              gradeClasses.push(gradeClass);
+            });
+        });
+  
+        return res.status(200).json(gradeClasses);
+      } else {
+        return res.status(404).json({ msg: "No grades found with classes that contain this teacher ID" });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ msg: "Internal server error" });
+    }
+  };
+  
+module.exports = { login, getTeacherTable , getTeacherClasses }

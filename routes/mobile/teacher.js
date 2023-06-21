@@ -4,6 +4,7 @@ const teacherCrtl=require('../../controllers/mobile/teacher')
 
 router.post('/login', teacherCrtl.login)
 router.get('/getTeacherTable/:teacherId', teacherCrtl.getTeacherTable)
+router.get('/getTeacherClasses/:teacherId', teacherCrtl.getTeacherClasses)
 
 
 module.exports=router
