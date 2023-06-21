@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const Security = require('../models/security');
+const Security = require('../../models/security');
 
 const addSecurityMember = async (req, res) => {
     const {

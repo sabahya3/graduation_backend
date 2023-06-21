@@ -1,4 +1,4 @@
-const Grade = require('../models/grade')
+const Grade = require('../../models/grade')
 
 const addGrade= async(req,res)=>{
 try{

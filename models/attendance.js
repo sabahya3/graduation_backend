@@ -10,13 +10,15 @@ const attendanceSchema = new Shema({
 
     },
     notificationType: {
-        type: String,
-        enum: ['Enter', 'Leave']
+        type: String
+      
     },
 
     message: String,
 
     scanLocation: { lat: String, lang: String },
+
+    locationName:String,
 
     securityId: {
         type: ObjectId,

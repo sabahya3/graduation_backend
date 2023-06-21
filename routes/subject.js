@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const subjectCtrl=require('../controllers/subject')
+const subjectCtrl=require('../controllers/dashboard/subject')
 
 router.post('/addSubject',subjectCtrl.addSubject)
 

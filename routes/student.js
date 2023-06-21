@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const studentCtrl=require('../controllers/student')
+const studentCtrl=require('../controllers/dashboard/student')
 
 router.post('/addStudent', studentCtrl.addStudent)
 router.patch('/updateStudent/:id',studentCtrl.updateStudent)
@@ -11,6 +11,8 @@ router.get('/getGradeStudents/:gradeId',studentCtrl.getGradeStudents)
 router.get('/getAllStudents',studentCtrl.getAllStudents)
 router.get('/getHomePageCounts',studentCtrl.getHomePageCounts)
 router.get('/getGenderCounts',studentCtrl.getGenderCounts)
+router.get('/getAttendance/:id',studentCtrl.getAttendanceDocuments)
+router.get('/getAttendanceDays/:id',studentCtrl.getAttendanceDays)
 
 
 

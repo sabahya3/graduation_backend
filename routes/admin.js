@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const adminCtrl=require('../controllers/admin')
+const adminCtrl=require('../controllers/dashboard/admin')
 
 router.post('/login',adminCtrl.login)
 router.post('/register',adminCtrl.register)

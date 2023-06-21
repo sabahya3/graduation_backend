@@ -15,6 +15,15 @@ const studentRouter = require('./routes/student');
 const securityRouter = require('./routes/security');
 const TableCellRouter = require('./routes/table_class');
 const isAuthorized = require('./middlewares/validation');
+//---------- mobile --------
+
+const studentMobRouter = require('./routes/mobile/student');
+const securityMobRouter = require('./routes/mobile/security');
+const homeWorkMobRouter = require('./routes/mobile/home_work');
+const teacherMobRouter = require('./routes/mobile/teacher');
+
+
+
 
 
 const app = express()
@@ -44,6 +53,15 @@ app.use('/v1/class', isAuthorized, classRouter)
 app.use('/v1/student',  isAuthorized,studentRouter)
 app.use('/v1/securityRouter', isAuthorized, securityRouter)
 app.use('/v1/tableCellRouter', isAuthorized, TableCellRouter)
+//------------Mob-----------------------
+app.use('/studentMob', studentMobRouter)
+app.use('/teacherMob', teacherMobRouter)
+
+app.use('/securityMob', securityMobRouter)
+app.use('/homeWorkMob', homeWorkMobRouter)
+
+
+
 
 
 app.get('/test', (req, res) => {

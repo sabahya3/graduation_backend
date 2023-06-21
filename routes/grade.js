@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const gradeCtrl=require('../controllers/grade')
+const gradeCtrl=require('../controllers/dashboard/grade')
 
 router.post('/addGrade',gradeCtrl.addGrade)
 

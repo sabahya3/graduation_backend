@@ -10,7 +10,7 @@ const homeWorkSchema = new Shema({
 
     },
 
-    description: {
+    desc: {
         type:String,
         required:true
 
@@ -22,11 +22,22 @@ const homeWorkSchema = new Shema({
        
     },
 
-    teacherId: {
+    grade: {
+        type: ObjectId,
+        ref:'Grade'
+       
+    },
+    subject: {
+        type: ObjectId,
+        ref:'Subject'
+       
+    },
+    teacher: {
         type: ObjectId,
         ref:'Teacher'
        
     },
+
   
 
 
