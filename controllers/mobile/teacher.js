@@ -2,6 +2,7 @@ const Teacher = require('../../models/teacher')
 const TableClass = require('../../models/table_classes')
 const Grade = require('../../models/grade')
 const Class = require('../../models/class')
+const Homework = require('../../models/home_work')
 
 
 
@@ -114,6 +115,57 @@ const getTeacherTable = async (req, res) => {
       return res.status(500).json({ msg: "Internal server error" });
     }
   };
+
+  const addHomeWork = async (req, res) => {
+    try {
+      // Extract the data from the request body
+      const { title, desc, classId, grade, subject, teacher } = req.body;
   
+      // Create a new instance of Homework
+      const newHomework = new Homework({
+        title,
+        desc,
+        classId,
+        grade,
+        subject,
+        teacher
+      });
   
-module.exports = { login, getTeacherTable , getTeacherClasses }
+      // Save the new homework to the database
+      const savedHomework = await newHomework.save();
+  
+      res.status(200).json({ message: 'Homework added successfully', homework: savedHomework });
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred while adding homework' });
+    }
+  };
+  
+  const getAllHomeWorksByTeacherId = async (req, res) => {
+    try {
+      const teacherId = req.params.teacherId;
+  
+      // Find all homework documents with the given teacherId,
+      // populate the referenced fields (grade, subject, class),
+      // and select only the necessary fields
+      const homeworks = await Homework.find({ teacher: teacherId })
+        .populate('grade', 'name')
+        .populate('subject', 'name')
+        .populate('classId', 'name')
+        .select('_id title desc classId grade subject');
+  
+      // Refactor the result to match the desired format
+      const transformedHomeworks = homeworks.map(homework => ({
+        _id: homework._id,
+        title: homework.title,
+        desc: homework.desc,
+        className: homework.classId ? homework.classId.name : '',
+        gradeName: homework.grade ? homework.grade.name : '',
+        subjectName: homework.subject ? homework.subject.name : ''
+      }));
+  
+      res.status(200).json(transformedHomeworks);
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred while fetching homeworks' });
+    }
+  };
+module.exports = { login, getTeacherTable , getTeacherClasses ,addHomeWork ,getAllHomeWorksByTeacherId }
