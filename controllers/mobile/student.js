@@ -69,13 +69,14 @@ const getWeekTableCellsByClassId = async (req, res) => {
       .populate('classId', 'name')
       .sort({ day: 1 }); // Sort by day ascending
 
-    const simplifiedTableCells = tableCells.map(({ _id, day, subject, teacher, classId, startAt, endAt }) => ({
+    const simplifiedTableCells = tableCells.map(({ _id, day, subject,  time,teacher, classId, startAt, endAt }) => ({
       _id,
       day,
       startAt,
       endAt,
       subject: subject ? subject.name : null,
       teacher: teacher ? teacher.name : null,
+      time
 
     }));
 
