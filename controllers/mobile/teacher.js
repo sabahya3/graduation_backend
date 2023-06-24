@@ -40,32 +40,45 @@ const login = async (req, res) => {
 
 
 const getTeacherTable = async (req, res) => {
-    const { teacherId } = req.params;
-  
-    try {
-      // Find all cells that contain the specified teacherId
-      const cells = await TableClass.find({ teacher: teacherId })
-        .select('-updatedAt -__v -teacher')
-        .populate('classId', 'name _id')
-        .populate('subject', 'name')
-        .lean();
-  
-      const newArrCells = [];
-  
-      // Extract classIds from the cells
-      for (var cell of cells) {
-        const id = cell.classId._id;
-        const grade = await Grade.findOne({ classes: {$in:[id]} });
-        cell.gradeName = grade ? grade.name : '';
-        newArrCells.push(cell);
+  const { teacherId } = req.params;
+
+  try {
+    // Find all cells that contain the specified teacherId
+    const cells = await TableClass.find({ teacher: teacherId })
+      .select('-updatedAt -__v -teacher')
+      .populate('classId', 'name _id')
+      .populate('subject', 'name')
+      .lean();
+
+    const newArrCells = [];
+
+    // Extract classIds from the cells
+    for (var cell of cells) {
+      const id = cell.classId._id;
+      const grade = await Grade.findOne({ classes: { $in: [id] } });
+
+      // Skip the cell if the subject document is not found
+      if (!cell.subject) {
+        continue;
       }
-  
-      res.json(newArrCells);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+
+      cell.gradeName = grade ? grade.name : '';
+
+      // Remove createdAt, startAt, and endAt fields
+      delete cell.createdAt;
+      delete cell.startAt;
+      delete cell.endAt;
+
+      newArrCells.push(cell);
     }
-  };
+
+    res.json(newArrCells);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
   
 
   const getTeacherClasses = async (req, res) => {
