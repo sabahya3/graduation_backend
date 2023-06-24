@@ -1,6 +1,8 @@
 const Teacher = require('../../models/teacher')
 const Class = require('../../models/class')
 const Grade = require('../../models/grade')
+const TableClass = require('../../models/table_classes')
+
 
 
 
@@ -189,7 +191,52 @@ const getClassByTeacherId = async (req, res) => {
 };
 
   
+const getTeacherTable = async (req, res) => {
+  const { teacherId } = req.params;
 
+  try {
+    // Find all cells that contain the specified teacherId
+    const cells = await TableClass.find({ teacher: teacherId })
+      .select('-updatedAt -__v -teacher')
+      .populate('classId', 'name _id')
+      .populate('subject', 'name')
+      .lean();
+
+    const newArrCells = [];
+
+    // Extract classIds from the cells
+    for (var cell of cells) {
+      const id = cell.classId._id;
+      const grade = await Grade.findOne({ classes: { $in: [id] } });
+
+      // Skip the cell if the subject document is not found
+      if (!cell.subject) {
+        continue;
+      }
+
+      const transformedCell = {
+        _id: cell._id,
+        day: cell.day,
+        time: cell.time,
+        classId: cell.classId._id,
+        className: cell.classId.name,
+        subjectId: cell.subject._id,
+        subjectName: cell.subject.name,
+        gradeName: grade ? grade.name : ''
+      };
+
+      newArrCells.push(transformedCell);
+    }
+
+    res.json(newArrCells);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+  
 
 module.exports={
     addTeacher,
@@ -198,5 +245,6 @@ module.exports={
     deleteTeacher,
     updateTeacher ,
     getTeacherById,
-    getClassByTeacherId
+    getClassByTeacherId,
+    getTeacherTable
 }
