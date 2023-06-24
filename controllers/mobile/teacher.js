@@ -54,27 +54,23 @@ const getTeacherTable = async (req, res) => {
     const newArrCells = [];
 
     // Extract classIds from the cells
-    for (var cell of cells) {
+    for (const cell of cells) {
       const id = cell.classId._id;
-      const grade = await Grade.findOne({ classes: { $in: [id] } });
+      const grade = await Grade.findOne({ classes: { $in: [id] } }).select('name');
 
       // Skip the cell if the subject document is not found
       if (!cell.subject) {
         continue;
       }
 
-      const transformedCell = {
-        _id: cell._id,
-        day: cell.day,
-        time: cell.time,
-        classId: cell.classId._id,
-        className: cell.classId.name,
-        subjectId: cell.subject._id,
-        subjectName: cell.subject.name,
-        gradeName: grade ? grade.name : ''
-      };
+      cell.gradeName = grade ? grade.name : '';
 
-      newArrCells.push(transformedCell);
+      // Remove createdAt, startAt, and endAt fields
+      delete cell.createdAt;
+      delete cell.startAt;
+      delete cell.endAt;
+
+      newArrCells.push(cell);
     }
 
     res.json(newArrCells);
