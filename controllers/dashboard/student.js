@@ -324,5 +324,62 @@ getAttendanceDays = async (req, res) => {
   return res.status(200).json([]);
 }
 
+const getTopThreeStudents = async (req,res) => {
+  try {
+    const result = await Attendance.aggregate([
+      {
+        $group: {
+          _id: '$studentId',
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { count: -1 }
+      },
+      {
+        $limit: 3
+      },
+      {
+        $lookup: {
+          from: 'students',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'student'
+        }
+      },
+      {
+        $lookup: {
+          from: 'grades',
+          localField: 'student.grade',
+          foreignField: '_id',
+          as: 'grade'
+        }
+      },
+      {
+        $lookup: {
+          from: 'classes',
+          localField: 'student.class',
+          foreignField: '_id',
+          as: 'class'
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          studentId: '$_id',
+          studentName: { $arrayElemAt: ['$student.name', 0] },
+          gradeName: { $ifNull: [{ $arrayElemAt: ['$grade.name', 0] }, 'Unknown'] },
+          className: { $ifNull: [{ $arrayElemAt: ['$class.name', 0] }, 'Unknown'] },
+          totalDays: '$count'
+        }
+      }
+    ]);
 
-module.exports = { getAttendanceDays, getAttendanceDocuments, getGenderCounts, getHomePageCounts, addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
+ if(result) res.status(200).json(result)
+  } catch (error) {
+    console.error(error);
+    res.status(404).json({msg:'an Error Occured'})
+  }
+};
+
+module.exports = { getTopThreeStudents,getAttendanceDays, getAttendanceDocuments, getGenderCounts, getHomePageCounts, addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
