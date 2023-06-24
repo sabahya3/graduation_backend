@@ -39,6 +39,7 @@ const login = async (req, res) => {
 
 
 
+  
 const getTeacherTable = async (req, res) => {
   const { teacherId } = req.params;
 
@@ -62,14 +63,18 @@ const getTeacherTable = async (req, res) => {
         continue;
       }
 
-      cell.gradeName = grade ? grade.name : '';
+      const transformedCell = {
+        _id: cell._id,
+        day: cell.day,
+        time: cell.time,
+        classId: cell.classId._id,
+        className: cell.classId.name,
+        subjectId: cell.subject._id,
+        subjectName: cell.subject.name,
+        gradeName: grade ? grade.name : ''
+      };
 
-      // Remove createdAt, startAt, and endAt fields
-      delete cell.createdAt;
-      delete cell.startAt;
-      delete cell.endAt;
-
-      newArrCells.push(cell);
+      newArrCells.push(transformedCell);
     }
 
     res.json(newArrCells);
@@ -78,6 +83,7 @@ const getTeacherTable = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
 
   
 
