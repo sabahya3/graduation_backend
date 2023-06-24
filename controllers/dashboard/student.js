@@ -324,7 +324,7 @@ getAttendanceDays = async (req, res) => {
   return res.status(200).json([]);
 }
 
-const getTopThreeStudents = async (req,res) => {
+const getTopThreeStudents = async (req, res) => {
   try {
     const result = await Attendance.aggregate([
       {
@@ -337,7 +337,7 @@ const getTopThreeStudents = async (req,res) => {
         $sort: { count: -1 }
       },
       {
-        $limit: 3
+        $limit: 10
       },
       {
         $lookup: {
@@ -358,7 +358,7 @@ const getTopThreeStudents = async (req,res) => {
       {
         $lookup: {
           from: 'classes',
-          localField: 'student.class',
+          localField: 'student.classId',
           foreignField: '_id',
           as: 'class'
         }
@@ -375,10 +375,10 @@ const getTopThreeStudents = async (req,res) => {
       }
     ]);
 
- if(result) res.status(200).json(result)
+    if (result) res.status(200).json(result);
   } catch (error) {
     console.error(error);
-    res.status(404).json({msg:'an Error Occured'})
+    res.status(404).json({ msg: 'An error occurred' });
   }
 };
 
