@@ -2,6 +2,7 @@ const Student = require('../../models/student')
 const Class = require('../../models/class')
 const TableCell = require('../../models/table_classes');
 const Attendance = require('../../models/attendance');
+const Homework = require('../../models/home_work');
 
 
 
@@ -113,9 +114,40 @@ getAttendanceDays = async (req, res) => {
 
   return res.status(200).json([]);
 }
+
+
+const getAllHomeWorksByClassId = async (req, res) => {
+  try {
+    const classId = req.params.classId;
+
+    // Find all homework documents with the given teacherId,
+    // populate the referenced fields (grade, subject, class),
+    // and select only the necessary fields
+    const homeworks = await Homework.find({ classId: classId })
+      .populate('teacher', 'name')
+      .populate('subject', 'name')
+      .populate('classId', 'name')
+      .select('_id title desc classId teacher subject');
+
+    // Refactor the result to match the desired format
+    const transformedHomeworks = homeworks.map(homework => ({
+      _id: homework._id,
+      title: homework.title,
+      desc: homework.desc,
+      className: homework.classId ? homework.classId.name : '',
+      teacherName: homework.teacher ? homework.teacher.name : '',
+      subjectName: homework.subject ? homework.subject.name : ''
+    }));
+
+    res.status(200).json(transformedHomeworks);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching homeworks' });
+  }
+};
 module.exports = {
   login,
   getClassTeachers,
   getWeekTableCellsByClassId,
-  getAttendanceDays
+  getAttendanceDays,
+  getAllHomeWorksByClassId
 }
