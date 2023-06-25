@@ -50,7 +50,7 @@ app.use('/v1/subject', isAuthorized, subjectRouter)
 app.use('/v1/teacher',  isAuthorized,teacherRouter)
 app.use('/v1/grade', isAuthorized, gradeRouter)
 app.use('/v1/class', isAuthorized, classRouter)
-app.use('/v1/student',studentRouter)
+app.use('/v1/student',isAuthorized,studentRouter)
 app.use('/v1/securityRouter', isAuthorized, securityRouter)
 app.use('/v1/tableCellRouter', isAuthorized, TableCellRouter)
 //------------Mob-----------------------

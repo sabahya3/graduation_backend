@@ -1,6 +1,8 @@
 const Student = require('../../models/student')
 const Class = require('../../models/class')
 const TableCell = require('../../models/table_classes');
+const Attendance = require('../../models/attendance');
+
 
 
 const bcrypt = require('bcryptjs')
@@ -86,8 +88,34 @@ const getWeekTableCellsByClassId = async (req, res) => {
     res.status(500).send('Server Error');
   }
 }
+
+getAttendanceDays = async (req, res) => {
+  const id = req.params.id;
+  const result = await Attendance.find({ studentId: id }, { createdAt: 1, _id: 0 }).lean();
+
+  if (result) {
+    const attendanceDays = result.map((e) => {
+      const dateObj = new Date(e.createdAt);
+      const options = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        timeZoneName: 'short'
+      };
+      return dateObj.toLocaleString('en-US', options);
+    });
+    return res.status(200).json(attendanceDays);
+  }
+
+  return res.status(200).json([]);
+}
 module.exports = {
   login,
   getClassTeachers,
-  getWeekTableCellsByClassId
+  getWeekTableCellsByClassId,
+  getAttendanceDays
 }
