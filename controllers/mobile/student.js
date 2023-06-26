@@ -72,7 +72,7 @@ const getWeekTableCellsByClassId = async (req, res) => {
       .populate('classId', 'name')
       .sort({ day: 1 }); // Sort by day ascending
 
-    const simplifiedTableCells = tableCells.map(({ _id, day, subject,  time,teacher, classId, startAt, endAt }) => ({
+    const simplifiedTableCells = tableCells.map(({ _id, day, subject, time, teacher, classId, startAt, endAt }) => ({
       _id,
       day,
       startAt,
@@ -144,10 +144,32 @@ const getAllHomeWorksByClassId = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching homeworks' });
   }
 };
+
+async function getStudentsByClassId(req, res) {
+  const { classId } = req.params;
+
+  try {
+    const students = await Student.find({ classId }).select('name id imgUrl elWasy.phoneNumber');
+    const modifiedStudents = students.map(student => ({
+
+      id: student.id,
+      name: student.name,
+      imgUrl: student.imgUrl,
+      phoneNumber: student.elWasy.length > 0 ? student.elWasy[0].phoneNumber : null
+    }));
+
+    res.json(modifiedStudents);
+  } catch (error) {
+    // Handle any errors that occurred during the query
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
 module.exports = {
   login,
   getClassTeachers,
   getWeekTableCellsByClassId,
   getAttendanceDays,
-  getAllHomeWorksByClassId
+  getAllHomeWorksByClassId,
+  getStudentsByClassId
 }

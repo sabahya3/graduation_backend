@@ -368,6 +368,7 @@ const getTopThreeStudents = async (req, res) => {
           _id: 0,
           studentId: '$_id',
           studentName: { $arrayElemAt: ['$student.name', 0] },
+          image: { $arrayElemAt: ['$student.imgUrl', 0] },
           gradeName: { $ifNull: [{ $arrayElemAt: ['$grade.name', 0] }, 'Unknown'] },
           className: { $ifNull: [{ $arrayElemAt: ['$class.name', 0] }, 'Unknown'] },
           totalDays: '$count'
