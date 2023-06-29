@@ -97,17 +97,10 @@ getAttendanceDays = async (req, res) => {
   if (result) {
     const attendanceDays = result.map((e) => {
       const dateObj = new Date(e.createdAt);
-      const options = {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        timeZoneName: 'short'
-      };
-      return dateObj.toLocaleString('en-US', options);
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
     });
     return res.status(200).json(attendanceDays);
   }
