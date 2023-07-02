@@ -1,6 +1,7 @@
 const router = require('express').Router()
 
 const studentCtrl=require('../controllers/dashboard/student')
+const reportsCtrl=require('../controllers/dashboard/report_to_school')
 
 router.post('/addStudent', studentCtrl.addStudent)
 router.patch('/updateStudent/:id',studentCtrl.updateStudent)
@@ -14,6 +15,10 @@ router.get('/getGenderCounts',studentCtrl.getGenderCounts)
 router.get('/getAttendance/:id',studentCtrl.getAttendanceDocuments)
 router.get('/getAttendanceDays/:id',studentCtrl.getAttendanceDays)
 router.get('/getTopTen/',studentCtrl.getTopThreeStudents)
+router.get('/getSchoolInbox',reportsCtrl.getSchoolInbox)
+router.post('/getSchoolInbox',reportsCtrl.getSchoolInbox)
+router.post('/createNewMsg', reportsCtrl.createMsgAsAdmin)
+router.post('/getAllMsgsWithPaginationByStudentId', reportsCtrl.getAllMsgsWithPaginationByStudentId)
 
 
 
