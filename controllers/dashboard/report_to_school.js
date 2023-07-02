@@ -95,7 +95,7 @@ const createNewMsgAsAStudent = async (req, res) => {
       const inbox = await SchoolInbox.find({})
         .populate({
           path: 'studentId',
-          select: 'name imgUrl'
+          select: 'name imgUrl _id'
         })
         .lean(); // Convert the query result to plain JavaScript objects
   
