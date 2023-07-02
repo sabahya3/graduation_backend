@@ -100,14 +100,16 @@ const createNewMsgAsAStudent = async (req, res) => {
         .lean(); // Convert the query result to plain JavaScript objects
   
       // Extract the desired fields and create a new array with the modified structure
-      const modifiedInbox = inbox.map((item) => ({
-        _id: item._id,
-        studentId: item.studentId._id,
-        name: item.studentId.name,
-        imgUrl: item.studentId.imgUrl
-      }));
+      const modifiedInbox = inbox
+        .filter((item) => item.studentId !== null) // Exclude objects with null studentId
+        .map((item) => ({
+          _id: item._id,
+          studentId: item.studentId ? item.studentId._id : null,
+          name: item.studentId ? item.studentId.name : null,
+          imgUrl: item.studentId ? item.studentId.imgUrl : null
+        }));
   
-      res.status(200).json( modifiedInbox );
+      res.status(200).json(modifiedInbox);
     } catch (error) {
       res.status(500).json({ error: 'Failed to retrieve school inbox' });
     }
