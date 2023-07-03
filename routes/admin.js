@@ -9,6 +9,5 @@ router.get('/logout',adminCtrl.logout)
 
 
 
-
 module.exports=router
 
