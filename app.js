@@ -31,9 +31,15 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express()
 
 
-app.use(cors({
-  origin: 'https://schkolla-system.vercel.app'
-}));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://schkolla-system.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+
+  next();
+});
+
 
 app.use(cookieParser())
 app.use(express.json())
