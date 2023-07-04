@@ -31,9 +31,8 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express()
 
 
-app.use('/admin/login', createProxyMiddleware({
-  target: 'https://schkolla-system.vercel.app/',
-  changeOrigin: true
+app.use(cors({
+  origin: 'https://schkolla-system.vercel.app'
 }));
 
 app.use(cookieParser())
