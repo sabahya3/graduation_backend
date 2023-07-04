@@ -32,7 +32,7 @@ const app = express()
 
 
 app.use('/admin/login', createProxyMiddleware({
-  target: 'https://joker.animeraa.com',
+  target: 'https://schkolla-system.vercel.app/',
   changeOrigin: true
 }));
 
