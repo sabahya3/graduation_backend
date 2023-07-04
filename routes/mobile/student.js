@@ -11,7 +11,7 @@ router.get('/getAttendanceDays/:id', studentCtrl.getAttendanceDays)
 router.get('/getAllHomeWorks/:classId', studentCtrl.getAllHomeWorksByClassId)
 router.get('/getStudentsByClassId/:classId', studentCtrl.getStudentsByClassId)
 router.post('/createNewMsg', reportsCtrl.createNewMsgAsAStudent)
-router.post('/getAllMsgsWithPaginationByStudentId', reportsCtrl.getAllMsgsWithPaginationByStudentId)
+router.get('/getAllMsgsByStudentId/:studentId', reportsCtrl.getAllMsgsByStudentId)
 
 router.post('/getMsgsWithPagination', chatCtrl.getMessagesWithPagination)
 router.post('/addNewMsg', chatCtrl.createMsgAsStudent)

@@ -88,6 +88,25 @@ const createNewMsgAsAStudent = async (req, res) => {
     }
   };
   
+  const getAllMsgsByStudentId = async (req, res) => {
+    const { studentId } = req.params;
+  
+  
+  
+    try {
+      // Retrieve messages with pagination
+      const messages = await SchoolChat.find({ studentId }).select({ updatedAt: 0, __v: 0, studentId: 0 })
+        .sort({ createdAt: -1 });
+  
+      // Count total number of messages for the student
+  
+      res.status(200).json(
+        messages
+      );
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to retrieve messages' });
+    }
+  };
 
   const getSchoolInbox = async (req, res) => {
     try {
@@ -121,5 +140,6 @@ const createNewMsgAsAStudent = async (req, res) => {
     createMsgAsAdmin,
     createNewMsgAsAStudent,
     getAllMsgsWithPaginationByStudentId,
-    getSchoolInbox
+    getSchoolInbox,
+    getAllMsgsByStudentId
   }
