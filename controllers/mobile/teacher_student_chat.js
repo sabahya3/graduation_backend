@@ -70,9 +70,23 @@ const getMessagesWithPagination = async (req, res) => {
   };
   
 
+  const getMsgsKh = async (req, res) => {
+    const { teacherId, studentId } = req.body;
+  
+  
+    try {
+      const messages = await TeacherStudentChat.find({ studentId, teacherId }).select({ updatedAt: 0, __v: 0, studentId: 0, teacherId: 0 }).sort({ createdAt: -1 });
+  
+      res.status(200).json(messages);
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred while retrieving the messages.' });
+    }
+  };
+  
 
 module.exports = {
     createMsgAsATeacher,
     createMsgAsStudent ,
-    getMessagesWithPagination
+    getMessagesWithPagination,
+    getMsgsKh
 }

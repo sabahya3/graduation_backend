@@ -13,7 +13,7 @@ router.get('/getStudentsByClassId/:classId', studentCtrl.getStudentsByClassId)
 router.post('/createNewMsg', reportsCtrl.createNewMsgAsAStudent)
 router.get('/getAllMsgsByStudentId/:studentId', reportsCtrl.getAllMsgsByStudentId)
 
-router.post('/getMsgsWithPagination', chatCtrl.getMessagesWithPagination)
+router.post('/getMsgs', chatCtrl.getMsgsKh)
 router.post('/addNewMsg', chatCtrl.createMsgAsStudent)
 
 
