@@ -30,6 +30,8 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express()
 
+const express = require('express');
+const app = express();
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'https://schkolla-system.vercel.app');
@@ -37,7 +39,19 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
 
-  next();
+  if (req.method === 'OPTIONS') {
+    // Handle preflight request
+    res.sendStatus(200); // Send HTTP status 200 for preflight requests
+  } else {
+    // Continue with the actual request
+    next();
+  }
+});
+
+// Other routes and middleware
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
 
 
