@@ -22,39 +22,23 @@ const securityMobRouter = require('./routes/mobile/security');
 const homeWorkMobRouter = require('./routes/mobile/home_work');
 const teacherMobRouter = require('./routes/mobile/teacher');
 
-const { createProxyMiddleware } = require('http-proxy-middleware');
-
 
 
 
 
 const app = express()
 
-const express = require('express');
-const app = express();
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://schkolla-system.vercel.app');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
-
-  if (req.method === 'OPTIONS') {
-    // Handle preflight request
-    res.sendStatus(200); // Send HTTP status 200 for preflight requests
-  } else {
-    // Continue with the actual request
-    next();
-  }
-});
-
-// Other routes and middleware
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
-
-
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      , 'https://schkolla-system.vercel.app/'
+    ],
+    credentials: true,
+  })
+);
 app.use(cookieParser())
 app.use(express.json())
 
@@ -62,13 +46,13 @@ app.use(express.json())
 
 // routes 
 app.use('/v1/admin', adminRouter)
-app.use('/v1/subject', isAuthorized , subjectRouter)
-app.use('/v1/teacher',  isAuthorized,teacherRouter)
-app.use('/v1/grade', isAuthorized, gradeRouter)
-app.use('/v1/class', isAuthorized, classRouter)
+app.use('/v1/subject' , subjectRouter)
+app.use('/v1/teacher' ,teacherRouter)
+app.use('/v1/grade' , gradeRouter)
+app.use('/v1/class' , classRouter)
 app.use('/v1/student',studentRouter)
-app.use('/v1/securityRouter', isAuthorized, securityRouter)
-app.use('/v1/tableCellRouter', isAuthorized, TableCellRouter)
+app.use('/v1/securityRouter' , securityRouter)
+app.use('/v1/tableCellRouter' , TableCellRouter)
 //------------Mob-----------------------
 app.use('/studentMob', studentMobRouter)
 app.use('/teacherMob', teacherMobRouter)
