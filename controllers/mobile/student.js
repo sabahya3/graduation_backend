@@ -92,7 +92,7 @@ const getWeekTableCellsByClassId = async (req, res) => {
 
 getAttendanceDays = async (req, res) => {
   const id = req.params.id;
-  const result = await Attendance.find({ studentId: id }, { createdAt: 1, _id: 0 }).lean();
+  const result = await Attendance.find({ studentId: id, notificationType: 'حضور' }, { createdAt: 1, _id: 0 }).lean();
 
   if (result) {
     const attendanceDays = result.map((e) => {
