@@ -229,13 +229,13 @@ getAttendanceDocuments = async (req, res) => {
     }
   ])
 
-  if (result) res.status(200).json({studentAbsence:calculateAbsentDays(result) , studentAtendance :calculateAttendanceDays(result)})
+  if (result) res.status(200).json({ studentAbsence: calculateAbsentDays(result), studentAtendance: calculateAttendanceDays(result) })
 }
 
 
 function calculateAbsentDays(attendanceArray) {
   if (attendanceArray.length === 0) {
-    return  [
+    return [
       30,
       30,
       30,
@@ -268,7 +268,7 @@ function calculateAbsentDays(attendanceArray) {
 function calculateAttendanceDays(attendanceArray) {
 
   if (attendanceArray.length === 0) {
-    return  [
+    return [
       0,
       0,
       0,
@@ -289,7 +289,7 @@ function calculateAttendanceDays(attendanceArray) {
 
   const attendanceDaysArray = attendanceArray.map((attendance) => {
     const count = attendance.count;
-    const attendanceDayes =  count; // Assuming 30 days in a month
+    const attendanceDayes = count; // Assuming 30 days in a month
 
     return attendanceDayes;
   });
@@ -301,7 +301,7 @@ function calculateAttendanceDays(attendanceArray) {
 //----------
 getAttendanceDays = async (req, res) => {
   const id = req.params.id;
-  const result = await Attendance.find({ studentId: id }, { createdAt: 1, _id: 0 }).lean();
+  const result = await Attendance.find({ studentId: id, notificationType: 'حضور' }, { createdAt: 1, _id: 0 }).lean();
 
   if (result) {
     const attendanceDays = result.map((e) => {
@@ -383,4 +383,4 @@ const getTopThreeStudents = async (req, res) => {
   }
 };
 
-module.exports = { getTopThreeStudents,getAttendanceDays, getAttendanceDocuments, getGenderCounts, getHomePageCounts, addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
+module.exports = { getTopThreeStudents, getAttendanceDays, getAttendanceDocuments, getGenderCounts, getHomePageCounts, addStudent, updateStudent, deleteStudent, getStudentById, getClassStudents, getGradeStudents, getAllStudents }
