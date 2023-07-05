@@ -62,17 +62,13 @@ const takeAttendance = async (req, res) => {
 
 
 getStudentAttendanceNotificationsWithPagination = async (req, res) => {
-  const { studentId, page } = req.body;
-  const limit = 10; // set the number of records per page
+  const { studentId } = req.body;
 
   try {
 
-    const skip = (page - 1) * limit; // calculate the number of records to skip based on the current page
 
     const result = await Attendance.find({ studentId }).select({ studentId: 0, __v: 0, updatedAt: 0 })
       .populate('securityId', 'name')
-      .skip(skip)
-      .limit(limit)
       .sort({ createdAt: -1 })
 
     res.status(200).json(result);
