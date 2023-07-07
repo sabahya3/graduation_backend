@@ -111,17 +111,17 @@ if (cluster.isMaster) {
 
 
         client.on('addUserIdToRedis', async (userId) => {
-         
+         // 12345 - > dafasfaf
             // add reciver id
             await currentClient.setEx(userId,24 * 60 * 60, client.id)
             const newUser = await currentClient.get(userId)
-            console.log(newUser)
+           console.log(newUser) 
 
         });
 
         client.on('sendMsg',async (data) => {
 
-            const reciverId =await currentClient.get(data.reciverId)
+            const reciverId =await currentClient.get(data.teacherId)
             console.log(reciverId)
             io.to(reciverId).emit('newMsg',{
              msg:data.msg   
