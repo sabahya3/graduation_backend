@@ -31,10 +31,6 @@ const takeAttendance = async (req, res) => {
     });
 
     if (existingAttendance) {
-      // Attendance record already exists for the current day, update it
-      existingAttendance.scanLocation = scanLocation;
-      existingAttendance.locationName = locationName;
-      await existingAttendance.save();
       return res.status(200).json({ msg: 'Attendance updated successfully' });
     } else {
       // Create new attendance record
