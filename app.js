@@ -43,14 +43,14 @@ app.use(express.json())
 // client - middleware > server 
 
 // routes 
-app.use('/v1/admin', adminRouter)
-app.use('/v1/subject' , subjectRouter)
-app.use('/v1/teacher' ,teacherRouter)
-app.use('/v1/grade' , gradeRouter)
-app.use('/v1/class' , classRouter)
-app.use('/v1/student',studentRouter)
-app.use('/v1/securityRouter' , securityRouter)
-app.use('/v1/tableCellRouter' , TableCellRouter)
+app.use('/v1/admin',adminRouter)
+app.use('/v1/subject' , isAuthorized, subjectRouter)
+app.use('/v1/teacher',isAuthorized ,teacherRouter)
+app.use('/v1/grade',isAuthorized , gradeRouter)
+app.use('/v1/class',isAuthorized , classRouter)
+app.use('/v1/student',isAuthorized,studentRouter)
+app.use('/v1/securityRouter',isAuthorized , securityRouter)
+app.use('/v1/tableCellRouter',isAuthorized , TableCellRouter)
 //------------Mob-----------------------
 app.use('/studentMob', studentMobRouter)
 app.use('/teacherMob', teacherMobRouter)
